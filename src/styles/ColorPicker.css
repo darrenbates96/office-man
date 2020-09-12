@@ -1,0 +1,43 @@
+.colorpicker-container {
+    margin: auto;
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    background-color: #ffffff;
+    box-shadow: 2px 4px 10px -2px rgba(171,171,171,0.86);
+    margin-bottom: 40px;
+}
+
+.colorpicker-container p {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 14px;
+    color: #3b3b3b;
+}
+
+.color {
+    width: 50px;
+    height: 50px;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.red {
+    background-color: red;
+}
+
+.black {
+    background-color: black;
+}
+
+.green {
+    background-color: green;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.orange {
+    background-color: orange;
+}

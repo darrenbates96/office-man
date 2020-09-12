@@ -1,0 +1,77 @@
+/* Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+*, html, body {
+    margin: 0;
+    padding: 0;
+}
+
+#root {
+    height: 100vh;
+    overflow: hidden;
+}
+
+a,
+span,
+p,
+h1,
+h2,
+h3 {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    color: #000000;
+}
+a {
+    text-decoration: none;
+}
+
+input:focus,
+button:focus {
+    outline: none;
+}
+
+/* Box layout classes to be used throughout app */
+/* Cross-browser compatible */
+
+.flex {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.fill-remaining {
+    flex: 1;
+}
+
+.column {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.justify-center {
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.justify-sb {
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+.justify-end {
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}
+
+.align-center {
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
