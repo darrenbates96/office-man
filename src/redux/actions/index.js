@@ -31,6 +31,26 @@ export const getEmployeesAction = () => async (dispatch) => {
     dispatch({ type: "GET_EMPLOYEES", payload: resp_array });
 };
 
+// Function that adds a new employee doc to the firebase
+// 'employees' collection with the id of the office that
+// the user is currently viewing
+export const addEmployeeAction = (employee_object) => async (dispatch) => {
+    dispatch({ type: "IN_PROGRESS" });
+    const randomString = (length, chars) => {
+        let result = "";
+        for (let i = length; i > 0; --i)
+            result += chars[Math.floor(Math.random() * chars.length)];
+        return result;
+    };
+    let rString = randomString(
+        24,
+        "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    );
+    await db.collection("employees").doc(rString).set(employee_object);
+    dispatch({ type: "ACTION_SUCCESS" });
+    dispatch({ type: "NOT_IN_PROGRESS" });
+};
+
 // Function creates an id, and that adds new office to the
 // firebase 'offices' collection
 export const addOfficeAction = (office_info) => async (dispatch) => {

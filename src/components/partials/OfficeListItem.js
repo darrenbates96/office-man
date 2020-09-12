@@ -8,9 +8,26 @@ import { MdEdit, MdRemoveCircle } from "react-icons/md";
 import { ImPhone } from "react-icons/im";
 import "../../styles/OfficeListItem.css";
 
-const OfficeListItem = ({ info, toggleModal, setAction, dispatch }) => {
+const OfficeListItem = ({
+    info,
+    toggleModal,
+    setAction,
+    employees,
+    dispatch,
+}) => {
     // Object destructuring
     const { name, location, email, no_occupants, tell_no, id } = info;
+
+    // Count employees
+    let no_employees = 0;
+    if (employees.length > 0) {
+        for (let i = 0; i < employees.length; i++) {
+            if (employees[i].office_id === id) {
+                no_employees += 1;
+            }
+        }
+        no_employees = no_employees < 10 ? `0${no_employees}` : no_employees;
+    }
 
     // State instantiation for submenu
     const [subMenu, setSubMenu] = useState(false);
@@ -99,7 +116,9 @@ const OfficeListItem = ({ info, toggleModal, setAction, dispatch }) => {
                 {renderSubMenu()}
                 <div className='oli-icon flex column justify-center align-center'>
                     <FiUsers color={"#ffffff"} size={"30px"} />
-                    <p>{`00/${no_occupants}`}</p>
+                    <p>{`${
+                        no_employees ? no_employees : "00"
+                    }/${no_occupants}`}</p>
                 </div>
                 <Link
                     to={`/office/${id}`}
@@ -130,4 +149,11 @@ const OfficeListItem = ({ info, toggleModal, setAction, dispatch }) => {
 
 // ##### Redux ##### //
 
-export default connect()(OfficeListItem);
+// Pull state
+const mapStateToProps = (state) => {
+    return {
+        employees: state.employees.employees,
+    };
+};
+
+export default connect(mapStateToProps)(OfficeListItem);

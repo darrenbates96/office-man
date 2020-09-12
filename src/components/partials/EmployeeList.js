@@ -4,7 +4,13 @@ import ScaleLoader from "react-spinners/ScaleLoader";
 import EmployeeListItem from "./EmployeeListItem";
 import "../../styles/EmployeeList.css";
 
-const EmployeeList = ({ currentOffice, employees, toggleModal, setAction }) => {
+const EmployeeList = ({
+    currentOffice,
+    employees,
+    toggleModal,
+    setAction,
+    dispatch,
+}) => {
     // Instantiate state for search bar
     const [search, setSearch] = useState("");
 
