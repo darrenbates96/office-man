@@ -1,0 +1,29 @@
+.officeview-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f0f0;
+}
+
+.of-header {
+    height: 25%;
+    padding: 15px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-image: linear-gradient(#1673b1, #64c4e5);
+}
+
+.of-header h1 {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: lighter;
+    margin-left: 20px;
+    margin-top: -2px;
+}
+
+.of-header p {
+    color: #ffffff;
+    font-size: 12px;
+}

@@ -6,10 +6,10 @@
     align-items: center;
     justify-content: space-between;
     max-height: 100px;
-    background-image: linear-gradient(#1673B1, #64C4E5);
+    background-image: linear-gradient(#1673b1, #64c4e5);
 }
 
-h1 {
+.th-h1 {
     font-size: 26px;
     color: #ffffff;
     margin-left: 3%;

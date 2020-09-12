@@ -163,9 +163,9 @@ const OfficeModalForm = ({
 // Pull state
 const mapStateToProps = (state) => {
     return {
-        inProgress: state.inProgress,
-        offices: state.offices,
-        currentOfficeId: state.currentOfficeId,
+        inProgress: state.offices.inProgress,
+        offices: state.offices.offices,
+        currentOfficeId: state.offices.currentOfficeId,
     };
 };
 

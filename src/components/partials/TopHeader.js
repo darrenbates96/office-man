@@ -11,7 +11,7 @@ const TopHeader = ({ toggleModal, setAction }) => {
 
     return (
         <div className='topheader-container'>
-            <h1>Office Man</h1>
+            <h1 className='th-h1'>Office Man</h1>
             <button onClick={buttonHelper}>Add Office</button>
         </div>
     );

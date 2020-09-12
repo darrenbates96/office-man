@@ -18,12 +18,23 @@ export const getOfficesAction = () => async (dispatch) => {
     dispatch({ type: "GET_OFFICES", payload: resp_array });
 };
 
+// Function pulls 'employees' collection from firebase and
+// updates redux state accordingly
+export const getEmployeesAction = () => async (dispatch) => {
+    let response = await db.collection("employees").get();
+    let resp_array = [];
+    response.docs.forEach((item) => {
+        let item_object = item.data();
+        item_object.id = item.id;
+        resp_array.push(item_object);
+    });
+    dispatch({ type: "GET_EMPLOYEES", payload: resp_array });
+};
+
 // Function creates an id, and that adds new office to the
 // firebase 'offices' collection
 export const addOfficeAction = (office_info) => async (dispatch) => {
-    // Dispatch action to show spinner during function duration
     dispatch({ type: "IN_PROGRESS" });
-    // Create random alphanumeric 24 char string
     const randomString = (length, chars) => {
         let result = "";
         for (let i = length; i > 0; --i)
@@ -34,31 +45,23 @@ export const addOfficeAction = (office_info) => async (dispatch) => {
         24,
         "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     );
-    // Add new office to firebase
     await db.collection("offices").doc(rString).set(office_info);
-    // The below resets the redux state to what it was pre-action
     dispatch({ type: "ACTION_SUCCESS" });
     dispatch({ type: "NOT_IN_PROGRESS" });
 };
 
 // Function edits the values of an existing firebase 'offices' doc
 export const editOfficeAction = (office_info) => async (dispatch) => {
-    // Dispatch action to show spinner during function duration
     dispatch({ type: "IN_PROGRESS" });
-    // Push new values to firebase
     await db.collection("offices").doc(office_info.id).update(office_info);
-    // The below resets the redux state to what it was pre-action
     dispatch({ type: "ACTION_SUCCESS" });
     dispatch({ type: "NOT_IN_PROGRESS" });
 };
 
 // Function deletes an office from the firebase 'offices' collection
 export const deleteOfficeAction = (id) => async (dispatch) => {
-    // Dispatch action to show spinner during function duration
     dispatch({ type: "IN_PROGRESS" });
-    // Delete the doc from firebase
     await db.collection("offices").doc(id).delete();
-    // The below resets the redux state to what it was pre-action
     dispatch({ type: "ACTION_SUCCESS" });
     dispatch({ type: "NOT_IN_PROGRESS" });
 };

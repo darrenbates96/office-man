@@ -1,13 +1,19 @@
 import React, { useEffect, useState, Fragment } from "react";
 import { connect } from "react-redux";
-import { getOfficesAction } from "../redux/actions";
+import { getOfficesAction, getEmployeesAction } from "../redux/actions";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import TopHeader from "../components/partials/TopHeader";
 import OfficeListItem from "./partials/OfficeListItem";
 import Modal from "../components/Modal";
 import "../styles/Home.css";
 
-const Home = ({ offices, getOffices, actionSuccess, resetActionSuccess }) => {
+const Home = ({
+    offices,
+    getOffices,
+    getEmployees,
+    actionSuccess,
+    resetActionSuccess,
+}) => {
     // Component level state for modal
     const [modal, setModal] = useState(false);
     const [action, setAction] = useState("Add");
@@ -19,8 +25,9 @@ const Home = ({ offices, getOffices, actionSuccess, resetActionSuccess }) => {
             resetActionSuccess();
         } else {
             getOffices();
+            getEmployees();
         }
-    }, [getOffices, actionSuccess, resetActionSuccess, modal]);
+    }, [getOffices, getEmployees, actionSuccess, resetActionSuccess, modal]);
 
     // Function to show either loader or offices
     const renderContent = () => {
@@ -71,8 +78,8 @@ const Home = ({ offices, getOffices, actionSuccess, resetActionSuccess }) => {
 // Pull state
 const mapStateToProps = (state) => {
     return {
-        offices: state.offices,
-        actionSuccess: state.actionSuccess,
+        offices: state.offices.offices,
+        actionSuccess: state.offices.actionSuccess,
     };
 };
 
@@ -81,6 +88,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getOffices: () => {
             dispatch(getOfficesAction());
+        },
+        getEmployees: () => {
+            dispatch(getEmployeesAction());
         },
         resetActionSuccess: () => {
             dispatch({ type: "RESET_ACTION_SUCCESS" });

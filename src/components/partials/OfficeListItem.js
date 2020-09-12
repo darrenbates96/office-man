@@ -61,6 +61,7 @@ const OfficeListItem = ({ info, toggleModal, setAction, dispatch }) => {
     // modal
     const subMenuHelper = (type) => {
         setAction(type);
+        setSubMenu(false);
         toggleModal();
     };
 
@@ -104,6 +105,9 @@ const OfficeListItem = ({ info, toggleModal, setAction, dispatch }) => {
                     to={`/office/${id}`}
                     key={id}
                     className='oli-info flex column justify-sb'
+                    onClick={() =>
+                        dispatch({ type: "SET_CURRENT_OFFICE", payload: info })
+                    }
                 >
                     <h3>{name}</h3>
                     <p>{location}</p>
@@ -123,5 +127,7 @@ const OfficeListItem = ({ info, toggleModal, setAction, dispatch }) => {
         </div>
     );
 };
+
+// ##### Redux ##### //
 
 export default connect()(OfficeListItem);
