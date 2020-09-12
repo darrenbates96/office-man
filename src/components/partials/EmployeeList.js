@@ -4,30 +4,29 @@ import ScaleLoader from "react-spinners/ScaleLoader";
 import EmployeeListItem from "./EmployeeListItem";
 import "../../styles/EmployeeList.css";
 
-const EmployeeList = ({
-    currentOffice,
-    employees,
-    toggleModal,
-    setAction,
-    dispatch,
-}) => {
+const EmployeeList = ({ currentOffice, employees, toggleModal, setAction }) => {
     // Instantiate state for search bar
     const [search, setSearch] = useState("");
+    // Filter employee list according to search term
+    let filteredEmployees = employees.filter((filtered) => {
+        return filtered.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+    });
 
     // Destructure out needed props
     const { no_occupants, id } = currentOffice;
 
     // Renders out the list of employees
     const renderList = () => {
-        if (employees.length !== 0) {
+        if (filteredEmployees.length !== 0) {
             return (
                 <Fragment>
-                    {employees.map((employee) => {
+                    {filteredEmployees.map((employee) => {
                         if (employee.office_id === id) {
                             return (
                                 <EmployeeListItem
                                     key={employee.id}
-                                    name={employee.name}
+                                    employee={employee}
+                                    color={currentOffice.color}
                                     toggleModal={toggleModal}
                                     setAction={setAction}
                                 />

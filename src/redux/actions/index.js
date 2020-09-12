@@ -65,6 +65,10 @@ export const addOfficeAction = (office_info) => async (dispatch) => {
         24,
         "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     );
+    // Make sure unchosen color defaults to black
+    if (office_info.color === "") {
+        office_info.color = "Black";
+    }
     await db.collection("offices").doc(rString).set(office_info);
     dispatch({ type: "ACTION_SUCCESS" });
     dispatch({ type: "NOT_IN_PROGRESS" });
@@ -78,10 +82,29 @@ export const editOfficeAction = (office_info) => async (dispatch) => {
     dispatch({ type: "NOT_IN_PROGRESS" });
 };
 
+// Function edits the values of an existing firebase 'employees' doc
+export const editEmployeeAction = (employee_info) => async (dispatch) => {
+    dispatch({ type: "IN_PROGRESS" });
+    await db
+        .collection("employees")
+        .doc(employee_info.id)
+        .update(employee_info);
+    dispatch({ type: "ACTION_SUCCESS" });
+    dispatch({ type: "NOT_IN_PROGRESS" });
+};
+
 // Function deletes an office from the firebase 'offices' collection
 export const deleteOfficeAction = (id) => async (dispatch) => {
     dispatch({ type: "IN_PROGRESS" });
     await db.collection("offices").doc(id).delete();
+    dispatch({ type: "ACTION_SUCCESS" });
+    dispatch({ type: "NOT_IN_PROGRESS" });
+};
+
+// Function deletes an employee from the firebase 'employes' collection
+export const deleteEmployeeAction = (id) => async (dispatch) => {
+    dispatch({ type: "IN_PROGRESS" });
+    await db.collection("employees").doc(id).delete();
     dispatch({ type: "ACTION_SUCCESS" });
     dispatch({ type: "NOT_IN_PROGRESS" });
 };

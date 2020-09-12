@@ -28,13 +28,13 @@ const OfficeModalForm = ({
     let existing_color = "";
     // Set states equal to current values as they
     // exist on firebase
-    if (action === "Edit") {
-        let currentOffice;
-        for (let i = 0; i < offices.length; i++) {
-            if (offices[i].id === currentOfficeId) {
-                currentOffice = offices[i];
-            }
+    let currentOffice;
+    for (let i = 0; i < offices.length; i++) {
+        if (offices[i].id === currentOfficeId) {
+            currentOffice = offices[i];
         }
+    }
+    if (action === "Edit") {
         existing_name = currentOffice.name;
         existing_email = currentOffice.email;
         existing_tell = currentOffice.tell_no;
@@ -50,6 +50,30 @@ const OfficeModalForm = ({
     const [address, setAddress] = useState(existing_address);
     const [occupants, setOccupants] = useState(existing_occupants);
     const [color, setColor] = useState(existing_color);
+    // State for form error handling
+    const [nameMissing, setNameMissing] = useState("");
+    const [emailMissing, setEmailMissing] = useState("");
+    const [tellMissing, setTellMissing] = useState("");
+    const [addressMissing, setAddressMissing] = useState("");
+    const [occupantsMissing, setOccupantsMissing] = useState("");
+
+    // If missing field is filled, remove the
+    // 'missing' styling
+    if (nameMissing && name) {
+        setNameMissing("");
+    }
+    if (emailMissing && email) {
+        setNameMissing("");
+    }
+    if (tellMissing && tell) {
+        setTellMissing("");
+    }
+    if (addressMissing && address) {
+        setAddressMissing("");
+    }
+    if (occupantsMissing && occupants) {
+        setOccupantsMissing("");
+    }
 
     // Function to fetch color from child
     // component <ColorPicker />
@@ -63,19 +87,37 @@ const OfficeModalForm = ({
         if (action === "Delete") {
             deleteOffice(currentOfficeId);
         } else {
-            let office_info = {
-                name: name,
-                email: email,
-                tell_no: tell,
-                location: address,
-                no_occupants: occupants,
-                color: color,
-            };
-            if (action === "Add") {
-                addOffice(office_info);
+            if (name && email && tell && address && occupants) {
+                let office_info = {
+                    name: name,
+                    email: email,
+                    tell_no: tell,
+                    location: address,
+                    no_occupants: occupants,
+                    color: color,
+                };
+                if (action === "Add") {
+                    addOffice(office_info);
+                } else {
+                    office_info.id = currentOfficeId;
+                    editOffice(office_info);
+                }
             } else {
-                office_info.id = currentOfficeId;
-                editOffice(office_info);
+                if (!name) {
+                    setNameMissing("missing");
+                }
+                if (!email) {
+                    setEmailMissing("missing");
+                }
+                if (!tell) {
+                    setTellMissing("missing");
+                }
+                if (!address) {
+                    setAddressMissing("missing");
+                }
+                if (!occupants) {
+                    setOccupantsMissing("missing");
+                }
             }
         }
     };
@@ -91,7 +133,7 @@ const OfficeModalForm = ({
                         <h3 className='form-h3'>
                             Are you sure you want to <span>Remove</span>
                         </h3>
-                        <h2 className='form-h2'>Office Name</h2>
+                        <h2 className='form-h2'>{currentOffice.name}</h2>
                         <button
                             className='form-button red'
                             onClick={submitHelper}
@@ -110,30 +152,35 @@ const OfficeModalForm = ({
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 placeholder='Office Name'
+                                className={nameMissing}
                             />
                             <input
                                 type='text'
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 placeholder='Email Address'
+                                className={emailMissing}
                             />
                             <input
                                 type='text'
                                 value={tell}
                                 onChange={(e) => setTell(e.target.value)}
                                 placeholder='Office tell'
+                                className={tellMissing}
                             />
                             <input
                                 type='text'
                                 value={address}
                                 onChange={(e) => setAddress(e.target.value)}
                                 placeholder='Address'
+                                className={addressMissing}
                             />
                             <input
                                 type='text'
                                 value={occupants}
                                 onChange={(e) => setOccupants(e.target.value)}
                                 placeholder='Max number of occupants'
+                                className={occupantsMissing}
                             />
                         </form>
                         <ColorPicker

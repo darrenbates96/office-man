@@ -42,8 +42,16 @@ input {
     color: #aaaaaa;
 }
 
+.missing {
+    border-bottom: 1px solid red;
+}
+
 input::-webkit-input-placeholder {
     color: #aaaaaa;
+}
+
+.missing::-webkit-input-placeholder {
+    color: red;
 }
 
 .form-button {
