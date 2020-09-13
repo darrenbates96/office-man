@@ -1,11 +1,13 @@
 import React, { useEffect, useState, Fragment } from "react";
 import { connect } from "react-redux";
 import { getOfficesAction, getEmployeesAction } from "../redux/actions";
+import firebase from "../firebase";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import TopHeader from "../components/partials/TopHeader";
 import OfficeListItem from "./partials/OfficeListItem";
 import Modal from "../components/Modal";
 import "../styles/Home.css";
+import { firestore } from "firebase";
 
 const Home = ({
     offices,

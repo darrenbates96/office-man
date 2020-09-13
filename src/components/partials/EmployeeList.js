@@ -7,6 +7,7 @@ import "../../styles/EmployeeList.css";
 const EmployeeList = ({ currentOffice, employees, toggleModal, setAction }) => {
     // Instantiate state for search bar
     const [search, setSearch] = useState("");
+
     // Filter employee list according to search term
     let filteredEmployees = employees.filter((filtered) => {
         return filtered.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
@@ -14,6 +15,10 @@ const EmployeeList = ({ currentOffice, employees, toggleModal, setAction }) => {
 
     // Destructure out needed props
     const { no_occupants, id } = currentOffice;
+
+    // Count office staff
+    let staff_count;
+    staff_count = employees.filter((employee) => employee.office_id === id);
 
     // Renders out the list of employees
     const renderList = () => {
@@ -62,7 +67,9 @@ const EmployeeList = ({ currentOffice, employees, toggleModal, setAction }) => {
                 />
             </div>
             <div className='addstaff flex row align-center justify-sb'>
-                <p>Staff Members 0/{no_occupants}</p>
+                <p>
+                    Staff Members {staff_count.length}/{no_occupants}
+                </p>
                 <button
                     onClick={() => {
                         setAction("Add");
